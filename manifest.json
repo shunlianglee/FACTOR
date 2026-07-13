@@ -1,0 +1,22 @@
+{
+  "name": "FactoryTech AI 跨語言傳承平台",
+  "short_name": "FactoryTech",
+  "description": "提供資深員工語音登錄與移工跨語言SOP檢索之工業PWA系統",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#f59e0b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/f59e0b/0f172a?text=FT",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://placehold.co/512x512/f59e0b/0f172a?text=FT",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
