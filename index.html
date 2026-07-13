@@ -1,28 +1,26 @@
 <!DOCTYPE html>
-<html lang="zh-TW"><head>
+<html lang="zh-TW">
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>工廠技術跨語言知識平台 - PWA 實作版</title>
-    
-    <!-- PWA Meta 標籤，使其符合行動端 App 規格 -->
+    <!-- PWA Manifest & Meta Tags for iOS -->
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="FactoryTech">
-    <link rel="apple-touch-icon" href="https://placehold.co/192x192/f59e0b/0f172a?text=FT">
-
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/5811/5811195.png">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Google Fonts Noto Sans TC -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans TC', sans-serif;
             -webkit-tap-highlight-color: transparent;
-            user-select: none;
         }
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
@@ -37,114 +35,112 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #475569;
         }
-        /* 鎖定行動端橡皮筋回彈與滾動 */
-        .ios-scroll-fix {
-            -webkit-overflow-scrolling: touch;
-        }
     </style>
-<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0px}.inset-y-0{top:0px;bottom:0px}.bottom-0{bottom:0px}.left-0{left:0px}.right-0{right:0px}.right-3{right:0.75rem}.top-0{top:0px}.top-24{top:6rem}.top-3{top:0.75rem}.z-40{z-index:40}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-1\.5{margin-bottom:0.375rem}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.ml-1\.5{margin-left:0.375rem}.mt-1{margin-top:0.25rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.mt-6{margin-top:1.5rem}.ml-0\.5{margin-left:0.125rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-10{height:2.5rem}.h-12{height:3rem}.h-16{height:4rem}.h-2\.5{height:0.625rem}.h-3{height:0.75rem}.h-3\.5{height:0.875rem}.h-36{height:9rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-full{height:100%}.max-h-60{max-height:15rem}.max-h-\[90vh\]{max-height:90vh}.min-h-screen{min-height:100vh}.w-1\.5{width:0.375rem}.w-10{width:2.5rem}.w-2\.5{width:0.625rem}.w-3{width:0.75rem}.w-3\.5{width:0.875rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-7xl{max-width:80rem}.max-w-lg{max-width:32rem}.flex-1{flex:1 1 0%}.flex-shrink-0{flex-shrink:0}.flex-grow{flex-grow:1}@keyframes bounce{0%, 100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}.animate-bounce{animation:bounce 1s infinite}@keyframes ping{75%, 100%{transform:scale(2);opacity:0}}.animate-ping{animation:ping 1s cubic-bezier(0, 0, 0.2, 1) infinite}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}@keyframes spin{to{transform:rotate(360deg)}}.animate-spin{animation:spin 1s linear infinite}.cursor-pointer{cursor:pointer}.list-inside{list-style-position:inside}.list-decimal{list-style-type:decimal}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.justify-around{justify-content:space-around}.gap-1{gap:0.25rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-1\.5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.375rem * var(--tw-space-y-reverse))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-5 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.overflow-x-hidden{overflow-x:hidden}.whitespace-pre{white-space:pre}.whitespace-pre-line{white-space:pre-line}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-b-2{border-bottom-width:2px}.border-t{border-top-width:1px}.border-t-2{border-top-width:2px}.border-amber-500{--tw-border-opacity:1;border-color:rgb(245 158 11 / var(--tw-border-opacity, 1))}.border-amber-500\/20{border-color:rgb(245 158 11 / 0.2)}.border-amber-500\/30{border-color:rgb(245 158 11 / 0.3)}.border-indigo-500\/30{border-color:rgb(99 102 241 / 0.3)}.border-rose-500\/20{border-color:rgb(244 63 94 / 0.2)}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.border-slate-800{--tw-border-opacity:1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.border-slate-800\/80{border-color:rgb(30 41 59 / 0.8)}.border-slate-900{--tw-border-opacity:1;border-color:rgb(15 23 42 / var(--tw-border-opacity, 1))}.border-emerald-500\/20{border-color:rgb(16 185 129 / 0.2)}.border-sky-500\/20{border-color:rgb(14 165 233 / 0.2)}.bg-slate-950{--tw-bg-opacity:1;background-color:rgb(2 6 23 / var(--tw-bg-opacity, 1))}.bg-amber-400{--tw-bg-opacity:1;background-color:rgb(251 191 36 / var(--tw-bg-opacity, 1))}.bg-amber-500{--tw-bg-opacity:1;background-color:rgb(245 158 11 / var(--tw-bg-opacity, 1))}.bg-amber-500\/10{background-color:rgb(245 158 11 / 0.1)}.bg-amber-500\/15{background-color:rgb(245 158 11 / 0.15)}.bg-black\/80{background-color:rgb(0 0 0 / 0.8)}.bg-indigo-500{--tw-bg-opacity:1;background-color:rgb(99 102 241 / var(--tw-bg-opacity, 1))}.bg-indigo-500\/20{background-color:rgb(99 102 241 / 0.2)}.bg-rose-400{--tw-bg-opacity:1;background-color:rgb(251 113 133 / var(--tw-bg-opacity, 1))}.bg-rose-500{--tw-bg-opacity:1;background-color:rgb(244 63 94 / var(--tw-bg-opacity, 1))}.bg-rose-600\/10{background-color:rgb(225 29 72 / 0.1)}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42 / var(--tw-bg-opacity, 1))}.bg-slate-900\/90{background-color:rgb(15 23 42 / 0.9)}.bg-slate-950\/40{background-color:rgb(2 6 23 / 0.4)}.bg-slate-950\/50{background-color:rgb(2 6 23 / 0.5)}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.bg-emerald-500\/10{background-color:rgb(16 185 129 / 0.1)}.bg-rose-500\/10{background-color:rgb(244 63 94 / 0.1)}.bg-sky-500\/10{background-color:rgb(14 165 233 / 0.1)}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-amber-500{--tw-gradient-from:#f59e0b var(--tw-gradient-from-position);--tw-gradient-to:rgb(245 158 11 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-emerald-500{--tw-gradient-from:#10b981 var(--tw-gradient-from-position);--tw-gradient-to:rgb(16 185 129 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-amber-600{--tw-gradient-to:#d97706 var(--tw-gradient-to-position)}.to-emerald-600{--tw-gradient-to:#059669 var(--tw-gradient-to-position)}.p-1{padding:0.25rem}.p-1\.5{padding:0.375rem}.p-2{padding:0.5rem}.p-2\.5{padding:0.625rem}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-1{padding-left:0.25rem;padding-right:0.25rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.px-1\.5{padding-left:0.375rem;padding-right:0.375rem}.pb-1{padding-bottom:0.25rem}.pb-12{padding-bottom:3rem}.pb-3{padding-bottom:0.75rem}.pl-10{padding-left:2.5rem}.pl-3{padding-left:0.75rem}.pr-4{padding-right:1rem}.pt-3{padding-top:0.75rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[9px\]{font-size:9px}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-medium{font-weight:500}.italic{font-style:italic}.leading-relaxed{line-height:1.625}.tracking-wider{letter-spacing:0.05em}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249 / var(--tw-text-opacity, 1))}.text-amber-300{--tw-text-opacity:1;color:rgb(252 211 77 / var(--tw-text-opacity, 1))}.text-amber-400{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}.text-amber-500{--tw-text-opacity:1;color:rgb(245 158 11 / var(--tw-text-opacity, 1))}.text-blue-400{--tw-text-opacity:1;color:rgb(96 165 250 / var(--tw-text-opacity, 1))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity, 1))}.text-emerald-500{--tw-text-opacity:1;color:rgb(16 185 129 / var(--tw-text-opacity, 1))}.text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248 / var(--tw-text-opacity, 1))}.text-rose-400{--tw-text-opacity:1;color:rgb(251 113 133 / var(--tw-text-opacity, 1))}.text-sky-400{--tw-text-opacity:1;color:rgb(56 189 248 / var(--tw-text-opacity, 1))}.text-sky-500{--tw-text-opacity:1;color:rgb(14 165 233 / var(--tw-text-opacity, 1))}.text-slate-200{--tw-text-opacity:1;color:rgb(226 232 240 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-slate-950{--tw-text-opacity:1;color:rgb(2 6 23 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-emerald-300{--tw-text-opacity:1;color:rgb(110 231 183 / var(--tw-text-opacity, 1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105 / var(--tw-text-opacity, 1))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.placeholder-slate-600::placeholder{--tw-placeholder-opacity:1;color:rgb(71 85 105 / var(--tw-placeholder-opacity, 1))}.placeholder-slate-700::placeholder{--tw-placeholder-opacity:1;color:rgb(51 65 85 / var(--tw-placeholder-opacity, 1))}.opacity-75{opacity:0.75}.shadow{--tw-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-amber-500\/10{--tw-shadow-color:rgb(245 158 11 / 0.1);--tw-shadow:var(--tw-shadow-colored)}.shadow-emerald-500\/10{--tw-shadow-color:rgb(16 185 129 / 0.1);--tw-shadow:var(--tw-shadow-colored)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-150{transition-duration:150ms}.hover\:border-slate-700:hover{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.hover\:bg-amber-600:hover{--tw-bg-opacity:1;background-color:rgb(217 119 6 / var(--tw-bg-opacity, 1))}.hover\:bg-rose-600\/20:hover{background-color:rgb(225 29 72 / 0.2)}.hover\:bg-slate-700:hover{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-800:hover{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.hover\:from-amber-600:hover{--tw-gradient-from:#d97706 var(--tw-gradient-from-position);--tw-gradient-to:rgb(217 119 6 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.hover\:from-emerald-600:hover{--tw-gradient-from:#059669 var(--tw-gradient-from-position);--tw-gradient-to:rgb(5 150 105 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.hover\:to-amber-700:hover{--tw-gradient-to:#b45309 var(--tw-gradient-to-position)}.hover\:to-emerald-700:hover{--tw-gradient-to:#047857 var(--tw-gradient-to-position)}.hover\:text-amber-300:hover{--tw-text-opacity:1;color:rgb(252 211 77 / var(--tw-text-opacity, 1))}.hover\:text-slate-100:hover{--tw-text-opacity:1;color:rgb(241 245 249 / var(--tw-text-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-1:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-amber-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(245 158 11 / var(--tw-ring-opacity, 1))}.focus\:ring-sky-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(14 165 233 / var(--tw-ring-opacity, 1))}.active\:scale-95:active{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.active\:scale-\[0\.98\]:active{--tw-scale-x:0.98;--tw-scale-y:0.98;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:translate-x-1{--tw-translate-x:0.25rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:text-amber-400{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}@media (min-width: 640px){.sm\:inline{display:inline}.sm\:h-6{height:1.5rem}.sm\:w-6{width:1.5rem}.sm\:w-auto{width:auto}.sm\:flex-initial{flex:0 1 auto}.sm\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.sm\:p-12{padding:3rem}.sm\:p-4{padding:1rem}.sm\:p-6{padding:1.5rem}.sm\:px-3{padding-left:0.75rem;padding-right:0.75rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:py-2{padding-top:0.5rem;padding-bottom:0.5rem}.sm\:py-6{padding-top:1.5rem;padding-bottom:1.5rem}.sm\:text-base{font-size:1rem;line-height:1.5rem}.sm\:text-lg{font-size:1.125rem;line-height:1.75rem}.sm\:text-sm{font-size:0.875rem;line-height:1.25rem}.sm\:text-xs{font-size:0.75rem;line-height:1rem}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:mb-0{margin-bottom:0px}.lg\:flex{display:flex}.lg\:hidden{display:none}.lg\:w-1\/3{width:33.333333%}.lg\:w-2\/3{width:66.666667%}.lg\:flex-row{flex-direction:row}.lg\:px-8{padding-left:2rem;padding-right:2rem}}</style></head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between overflow-x-hidden">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col pb-20 sm:pb-6">
 
-    <!-- 頂部導航列 (在 App 模式下會微調間距) -->
-    <header class="bg-slate-900/90 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-md pt-safe">
+    <!-- 頂部導航列 -->
+    <header class="bg-slate-900/80 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="bg-amber-500 text-slate-950 p-2.5 rounded-xl font-bold flex items-center justify-center shadow-lg shadow-amber-500/10">
-                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <div class="bg-amber-500 text-slate-950 p-2 rounded-xl font-bold flex items-center justify-center shadow-lg shadow-amber-500/10">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-sm sm:text-base font-black tracking-wider text-slate-100 flex items-center">
-                        FactoryTech AI <span class="ml-1.5 text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-1 py-0.5 rounded font-medium">PWA 實作版</span>
+                    <h1 class="text-base sm:text-lg font-black tracking-wider text-slate-100 flex items-center">
+                        FactoryTech AI <span class="ml-2 text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 px-1.5 py-0.5 rounded font-medium">PWA 修正版</span>
                     </h1>
-                    <p class="text-[9px] text-slate-400">跨語言語音 SOP 傳承平台</p>
+                    <p class="text-[10px] text-slate-400">真實串接 Gemini AI & Supabase 雲端資料庫</p>
                 </div>
             </div>
             
-            <div class="flex items-center space-x-2">
-                <!-- PWA 手機安裝按鈕 (動態顯示) -->
-                <button id="pwa-install-btn" class="hidden text-xs bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black px-3 py-2 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-amber-500/10">
-                    <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    <span>安裝 App</span>
+            <div class="flex items-center space-x-3">
+                <!-- 資料庫狀態指引按鈕 -->
+                <button onclick="toggleModal('sql-guide-modal')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-3 py-2 rounded-lg transition flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                    <span class="hidden sm:inline">SQL 建表腳本</span>
                 </button>
-                <!-- PWA 一鍵部署包下載 -->
-                <button onclick="toggleModal('pwa-deploy-modal')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 p-2 sm:px-3 sm:py-2 rounded-xl transition flex items-center gap-1">
-                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    <span class="hidden sm:inline">PWA 一鍵部署打包</span>
+                <!-- API & DB 設定按鈕 (桌面版顯現，手機板移到底部) -->
+                <button onclick="toggleModal('settings-modal')" class="hidden sm:flex text-xs bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-2 rounded-lg transition items-center gap-1.5 shadow-lg shadow-amber-500/10">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    <span>系統金鑰設定</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- 主區塊 -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex flex-col lg:flex-row gap-6 mb-16 lg:mb-0 ios-scroll-fix">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col lg:flex-row gap-6">
         
         <!-- 左側：核心操作區 -->
-        <div class="w-full lg:w-2/3 flex flex-col space-y-4 sm:space-y-6">
+        <div class="w-full lg:w-2/3 flex flex-col space-y-6">
             
             <!-- 運作模式提示 Banner -->
-            <div id="mode-banner" class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 rounded-xl p-4 flex items-center justify-between"><div class="flex items-center space-x-3 text-xs"><span class="flex h-3 w-3 bg-emerald-500 rounded-full"></span><div><span class="font-bold">目前處於：【真實雲端連線模式】</span><span class="text-slate-400">所有技術數據將寫入與查詢自您專屬的 Supabase。</span></div></div><button onclick="toggleModal('settings-modal')" class="text-xs text-emerald-400 font-bold underline">修改設定</button></div>
-
-            <!-- 桌面端頁籤切換 (在行動端會被隱藏，改用底部導航欄) -->
-            <div class="hidden lg:flex bg-slate-900 p-1.5 rounded-xl border border-slate-800">
-                <button id="tab-input-btn" onclick="switchTab('input')" class="flex-1 py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 transition-all bg-amber-500 text-slate-950 shadow">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <span>【台籍員工】技術語音登錄</span>
-                </button>
-                <button id="tab-search-btn" onclick="switchTab('search')" class="flex-1 py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 transition-all text-slate-400 hover:text-slate-100">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    <span>【越籍員工】技術跨語檢索</span>
+            <div id="mode-banner" class="bg-amber-500/10 border border-amber-500/20 text-amber-300 rounded-xl p-4 flex items-center justify-between text-xs sm:text-sm">
+                <div class="flex items-center space-x-3">
+                    <span class="flex h-3 w-3 relative">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+                    </span>
+                    <div>
+                        <span class="font-bold">目前處於：【展示模擬模式】</span>
+                        <span class="text-slate-400 hidden sm:inline">填入您自己的 API Key 與 Supabase 連線後即可啟用雲端資料庫與真 AI。</span>
+                    </div>
+                </div>
+                <button onclick="toggleModal('settings-modal')" class="text-xs text-amber-400 font-bold underline hover:text-amber-300">
+                    立即設定
                 </button>
             </div>
 
             <!-- 面板 1：語音/文字登錄 -->
-            <section id="panel-input" class="space-y-4 sm:space-y-6">
-                <div class="bg-slate-900 rounded-2xl border border-slate-800 p-4 sm:p-6 relative overflow-hidden">
+            <section id="panel-input" class="space-y-6">
+                <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 sm:p-6 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
                     
                     <div class="flex justify-between items-start mb-4">
                         <div>
                             <h2 class="text-base sm:text-lg font-bold text-slate-100">第一步：錄入現場經驗</h2>
-                            <p class="text-[11px] sm:text-xs text-slate-400 mt-1">師傅可以直接點擊語音按鈕說話，系統將自動辨識繁體中文。</p>
+                            <p class="text-xs text-slate-400 mt-1">師傅可以直接說話，系統將調用瀏覽器 Web Speech 進行中文語音轉文字。</p>
                         </div>
                     </div>
 
                     <!-- 範本預設按鈕 -->
-                    <div class="mb-4 bg-slate-950 p-3 rounded-xl border border-slate-850">
-                        <span class="text-[10px] text-slate-500 block mb-2 font-bold">📋 快速情境載入：</span>
-                        <div class="flex flex-wrap gap-1.5">
-                            <button onclick="fillPreset(1)" class="text-[11px] bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-400 px-2.5 py-1.5 rounded-lg transition active:scale-95">
-                                🔧 CNC換刀
+                    <div class="mb-4 bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <span class="text-[11px] text-slate-500 block mb-2 font-medium">📋 現場口語演示範本一鍵載入：</span>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="fillPreset(1)" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-400 px-3 py-2 rounded-lg transition">
+                                🔧 CNC換刀口語
                             </button>
-                            <button onclick="fillPreset(2)" class="text-[11px] bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-400 px-2.5 py-1.5 rounded-lg transition active:scale-95">
-                                ⚠️ 射出機異常
+                            <button onclick="fillPreset(2)" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-400 px-3 py-2 rounded-lg transition">
+                                ⚠️ 射出機異常高溫
                             </button>
-                            <button onclick="fillPreset(3)" class="text-[11px] bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-400 px-2.5 py-1.5 rounded-lg transition active:scale-95">
-                                🧹 下班保養
+                            <button onclick="fillPreset(3)" class="text-xs bg-slate-900 hover:bg-slate-800 border border-slate-700 text-amber-400 px-3 py-2 rounded-lg transition">
+                                掃地 廠房下班點檢
                             </button>
                         </div>
                     </div>
 
                     <!-- 文字輸入區 -->
                     <div class="space-y-4">
-                        <textarea id="raw-textarea" rows="4" class="w-full bg-slate-950 text-slate-100 border border-slate-800 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 text-xs sm:text-sm placeholder-slate-600" placeholder="師傅請說話或在此輸入技術點滴..."></textarea>
+                        <textarea id="raw-textarea" rows="4" class="w-full bg-slate-950 text-slate-100 border border-slate-800 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm placeholder-slate-600" placeholder="師傅請說話或在此打字輸入現場經驗..."></textarea>
                         
                         <!-- 語音控制與 AI 按鈕 -->
                         <div class="flex flex-col sm:flex-row gap-3 justify-between items-center">
                             <!-- 真實語音辨識按鈕 -->
-                            <button id="speech-btn" onclick="toggleSpeechRecognition()" class="w-full sm:w-auto h-12 flex items-center justify-center space-x-2 bg-rose-600/10 hover:bg-rose-600/20 text-rose-400 border border-rose-500/20 px-4 rounded-xl transition font-medium text-xs sm:text-sm active:scale-95">
+                            <button id="speech-btn" onclick="toggleSpeechRecognition()" class="w-full sm:w-auto flex items-center justify-center space-x-2 bg-rose-600/10 hover:bg-rose-600/20 text-rose-400 border border-rose-500/20 px-4 py-3 rounded-xl transition font-medium text-sm">
                                 <span id="speech-pulse" class="hidden relative flex h-2.5 w-2.5">
                                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
                                   <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
                                 </span>
-                                <svg id="speech-mic" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <svg id="speech-mic" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                                 <span id="speech-btn-text">開始語音輸入 (中文)</span>
                             </button>
 
                             <!-- AI 處理 -->
-                            <button onclick="processWithAI()" class="w-full sm:w-auto h-12 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-6 rounded-xl font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center space-x-2 active:scale-95">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            <button onclick="processWithAI()" class="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 px-6 py-3 rounded-xl font-bold text-sm shadow-md transition-all flex items-center justify-center space-x-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                                 <span>AI 潤稿與多語言翻譯</span>
                             </button>
                         </div>
@@ -152,49 +148,53 @@
                 </div>
 
                 <!-- AI Processing Loader -->
-                <div id="ai-loader" class="hidden bg-slate-900 rounded-2xl border border-slate-800 p-8 sm:p-12 text-center space-y-4 shadow-xl">
+                <div id="ai-loader" class="hidden bg-slate-900 rounded-2xl border border-slate-800 p-12 text-center space-y-4 shadow-xl">
                     <div class="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-amber-500"></div>
-                    <p class="text-xs sm:text-sm text-slate-400 animate-pulse" id="loader-text">AI 正在進行結構化轉化與生成對應越南語翻譯...</p>
+                    <p class="text-sm text-slate-400 animate-pulse" id="loader-text">AI 正在進行結構化轉化與生成對應越南語翻譯...</p>
                 </div>
 
                 <!-- AI 審查確認區 -->
-                <div id="ai-output-panel" class="hidden bg-slate-900 rounded-2xl border border-slate-800 p-4 sm:p-6 shadow-xl relative">
+                <div id="ai-output-panel" class="hidden bg-slate-900 rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl relative">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-indigo-500"></div>
                     <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
-                        <h3 class="text-sm sm:text-base font-bold text-slate-100 flex items-center gap-2">
-                            <span class="bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 px-2 py-0.5 rounded text-[10px]">AI 轉譯完成</span>
+                        <h3 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                            <span class="bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 px-2 py-0.5 rounded text-xs">AI 轉譯完成</span>
                             <span>第二步：校對與儲存</span>
                         </h3>
-                        <span class="text-[11px] text-slate-400 hidden sm:inline">請確認內容是否無誤</span>
+                        <span class="text-xs text-slate-400 hidden sm:inline">請確認內容是否無誤</span>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- 中文 SOP 欄位 -->
-                        <div class="bg-slate-950 p-3 sm:p-4 rounded-xl border border-slate-800">
-                            <span class="text-xs text-amber-400 font-bold block mb-2">🇹🇼 繁體中文 SOP</span>
+                        <!-- 中文 SOP -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <div class="flex items-center justify-between mb-2 pb-1 border-b border-slate-900">
+                                <span class="text-xs text-amber-400 font-bold">🇹🇼 潤稿後繁體中文 SOP</span>
+                            </div>
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-[10px] text-slate-500 font-bold mb-1">技術標題</label>
+                                    <label class="block text-[10px] text-slate-500 font-bold mb-1">技術標題 (ZH)</label>
                                     <input type="text" id="ai-zh-title" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs font-bold text-slate-100 focus:outline-none focus:ring-1 focus:ring-amber-500">
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] text-slate-500 font-bold mb-1">步驟細節</label>
-                                    <textarea id="ai-zh-content" rows="5" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300 leading-relaxed focus:outline-none focus:ring-1 focus:ring-amber-500"></textarea>
+                                    <label class="block text-[10px] text-slate-500 font-bold mb-1">詳細操作步驟 (ZH)</label>
+                                    <textarea id="ai-zh-content" rows="6" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300 leading-relaxed focus:outline-none focus:ring-1 focus:ring-amber-500"></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 越南文 SOP 欄位 -->
-                        <div class="bg-slate-950 p-3 sm:p-4 rounded-xl border border-slate-800">
-                            <span class="text-xs text-sky-400 font-bold block mb-2">🇻🇳 Tiếng Việt SOP (越南語)</span>
+                        <!-- 越南文 SOP -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <div class="flex items-center justify-between mb-2 pb-1 border-b border-slate-900">
+                                <span class="text-xs text-sky-400 font-bold">🇻🇳 Tiếng Việt SOP (越南文)</span>
+                            </div>
                             <div class="space-y-3">
                                 <div>
-                                    <label class="block text-[10px] text-slate-500 font-bold mb-1">TIÊU ĐỀ</label>
+                                    <label class="block text-[10px] text-slate-500 font-bold mb-1">TIÊU ĐỀ (VI)</label>
                                     <input type="text" id="ai-vi-title" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs font-bold text-slate-100 focus:outline-none focus:ring-1 focus:ring-sky-500">
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] text-slate-500 font-bold mb-1">CHI TIẾT</label>
-                                    <textarea id="ai-vi-content" rows="5" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300 leading-relaxed focus:outline-none focus:ring-1 focus:ring-sky-500"></textarea>
+                                    <label class="block text-[10px] text-slate-500 font-bold mb-1">CHI TIẾT CÁC BƯỚC (VI)</label>
+                                    <textarea id="ai-vi-content" rows="6" class="w-full bg-slate-900 border border-slate-800 rounded p-2 text-xs text-slate-300 leading-relaxed focus:outline-none focus:ring-1 focus:ring-sky-500"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -212,14 +212,14 @@
                             </select>
                         </div>
                         <div>
-                            <label class="block text-xs text-slate-400 font-bold mb-1.5">提取標籤 (半形逗號分隔)</label>
+                            <label class="block text-xs text-slate-400 font-bold mb-1.5">提取關鍵字標籤 (以半形逗號分隔)</label>
                             <input type="text" id="ai-tags" class="w-full bg-slate-900 border border-slate-800 rounded px-2 py-1.5 text-xs text-slate-200">
                         </div>
                     </div>
 
                     <div class="mt-5 flex justify-end">
-                        <button onclick="saveToDatabase()" class="w-full sm:w-auto h-12 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-sm px-6 rounded-xl flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/10 transition active:scale-95">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                        <button onclick="saveToDatabase()" class="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold text-sm px-6 py-3 rounded-xl flex items-center space-x-2 shadow-lg shadow-emerald-500/10 transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>
                             <span id="save-btn-text">確認寫入雲端資料庫</span>
                         </button>
                     </div>
@@ -228,19 +228,19 @@
 
             <!-- 面板 2：檢索與查詢 -->
             <section id="panel-search" class="space-y-6 hidden">
-                <div class="bg-slate-900 rounded-2xl border border-slate-800 p-4 sm:p-6 shadow-xl">
+                <div class="bg-slate-900 rounded-2xl border border-slate-800 p-5 sm:p-6 shadow-xl">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                         <div>
                             <h2 class="text-base sm:text-lg font-bold text-slate-100">跨語系技術資產庫</h2>
-                            <p class="text-[11px] sm:text-xs text-slate-400 mt-1">支持跨語言聯想檢索（輸入越文亦能尋找中文主文）。</p>
+                            <p class="text-xs text-slate-400 mt-1">越籍員工可輸入越文，系統透過語意與關鍵字索引即時找出中文技術主文。</p>
                         </div>
                         
                         <!-- 搜尋介面語系切換 -->
-                        <div class="flex bg-slate-950 border border-slate-800 p-1 rounded-xl w-full sm:w-auto">
-                            <button id="search-lang-zh" onclick="setSearchLanguage('zh')" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center transition bg-amber-500 text-slate-950 shadow">
-                                🇹🇼 繁中介面
+                        <div class="flex bg-slate-950 border border-slate-800 p-1 rounded-xl">
+                            <button id="search-lang-zh" onclick="setSearchLanguage('zh')" class="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center transition bg-amber-500 text-slate-950">
+                                🇹🇼 繁中
                             </button>
-                            <button id="search-lang-vi" onclick="setSearchLanguage('vi')" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center transition text-slate-400">
+                            <button id="search-lang-vi" onclick="setSearchLanguage('vi')" class="px-3 py-1.5 rounded-lg text-xs font-bold flex items-center transition text-slate-400">
                                 🇻🇳 Tiếng Việt
                             </button>
                         </div>
@@ -250,9 +250,9 @@
                     <div class="space-y-4">
                         <div class="relative">
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                             </span>
-                            <input type="text" id="search-input" onkeyup="renderList()" class="w-full h-12 bg-slate-950 text-slate-100 border border-slate-800 rounded-xl py-3 pl-10 pr-4 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder-slate-600" placeholder="輸入關鍵字檢索... (中文/越南文皆可)">
+                            <input type="text" id="search-input" onkeyup="renderList()" class="w-full bg-slate-950 text-slate-100 border border-slate-800 rounded-xl py-3.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder-slate-600" placeholder="輸入關鍵字檢索... (中文/越南文皆可)">
                         </div>
 
                         <!-- 篩選卡 -->
@@ -270,64 +270,32 @@
                 <!-- 搜尋結果 -->
                 <div class="space-y-4">
                     <div class="flex justify-between items-center px-1 text-xs text-slate-500">
-                        <span>找到 <strong id="search-count" class="text-amber-500">2</strong> 筆 SOP 文件</span>
+                        <span>找到 <strong id="search-count" class="text-amber-500">0</strong> 筆 SOP 文件</span>
                         <button onclick="loadFromDatabase()" class="text-amber-400 hover:underline flex items-center gap-1">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A9 9 0 1111 2.12V3"></path></svg>
-                            手動重新整理
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A9 9 0 1111 2.12V3" /></svg>
+                            手動刷新
                         </button>
                     </div>
 
-                    <div id="results-grid" class="grid grid-cols-1 gap-4 pb-12"><div class="bg-slate-900 hover:bg-slate-850/80 border border-slate-800 hover:border-slate-700 p-5 rounded-xl transition cursor-pointer flex flex-col justify-between relative group active:scale-[0.98]">
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="px-2 py-0.5 rounded border font-bold text-sky-400 bg-sky-500/10 border-sky-500/20">例行保養</span>
-                            <span class="text-slate-500">ZH ↔ VI</span>
-                        </div>
-                        <h4 class="font-bold text-slate-100 group-hover:text-amber-400 transition text-sm sm:text-base">廠房下班點檢保養事項</h4>
-                        <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-line">下班點檢保養時，請務必將車床旁的鐵屑用掃帚清掃乾淨並集中倒掉。接著到倉庫領取機油，並添加到油尺顯示一半以上。最後，離開前...</p>
+                    <div id="results-grid" class="grid grid-cols-1 gap-4">
+                        <!-- 資料動態載入 -->
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex justify-between items-center">
-                        <div class="flex gap-1">
-                            <span class="bg-slate-950 text-[9px] px-1.5 py-0.5 rounded text-slate-500">#下班點檢</span><span class="bg-slate-950 text-[9px] px-1.5 py-0.5 rounded text-slate-500">#例行保養</span><span class="bg-slate-950 text-[9px] px-1.5 py-0.5 rounded text-slate-500">#清潔</span>
-                        </div>
-                        <span class="text-xs text-amber-400 font-bold flex items-center group-hover:translate-x-1 transition-transform">
-                            <span>進入詳細細節</span>
-                            <svg class="w-4 h-4 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </span>
-                    </div>
-                </div><div class="bg-slate-900 hover:bg-slate-850/80 border border-slate-800 hover:border-slate-700 p-5 rounded-xl transition cursor-pointer flex flex-col justify-between relative group active:scale-[0.98]">
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-center text-[10px]">
-                            <span class="px-2 py-0.5 rounded border font-bold text-rose-400 bg-rose-500/10 border-rose-500/20">異常排除</span>
-                            <span class="text-slate-500">ZH ↔ VI</span>
-                        </div>
-                        <h4 class="font-bold text-slate-100 group-hover:text-amber-400 transition text-sm sm:text-base">射出機溫度過高緊急處理</h4>
-                        <p class="text-xs text-slate-300 leading-relaxed whitespace-pre-line">塑膠射出機的溫度如果飆升到接近280度，必須立即到機台後方將冷卻水循環閥完全打開，否則一旦超過五分鐘，螺桿整組將會咬死報...</p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800/80 flex justify-between items-center">
-                        <div class="flex gap-1">
-                            <span class="bg-slate-950 text-[9px] px-1.5 py-0.5 rounded text-slate-500">#塑膠射出機</span><span class="bg-slate-950 text-[9px] px-1.5 py-0.5 rounded text-slate-500">#溫度過高</span><span class="bg-slate-950 text-[9px] px-1.5 py-0.5 rounded text-slate-500">#冷卻水</span>
-                        </div>
-                        <span class="text-xs text-amber-400 font-bold flex items-center group-hover:translate-x-1 transition-transform">
-                            <span>進入詳細細節</span>
-                            <svg class="w-4 h-4 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </span>
-                    </div>
-                </div></div>
                 </div>
             </section>
 
         </div>
 
-        <!-- 右側：Supabase 監控面板 (桌面端可視，行動端可在底部選單點擊查看) -->
-        <div id="sidebar-panel" class="w-full lg:w-1/3 flex flex-col space-y-6">
-            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 sticky top-24 space-y-5">
+        <!-- 右側：Supabase 監控面板 -->
+        <div class="w-full lg:w-1/3 flex flex-col space-y-6">
+            <div id="desktop-monitor" class="bg-slate-900 rounded-2xl border border-slate-800 p-6 sticky top-24 space-y-5">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-3">
                     <h3 class="font-bold text-slate-200 flex items-center space-x-2 text-sm sm:text-base">
-                        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                        <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
                         <span>雲端 Supabase 連線狀態</span>
                     </h3>
-                    <span id="connection-badge" class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-bold">真實 Supabase 已連線</span>
+                    <span id="connection-badge" class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-bold">
+                        Local Demo 模式
+                    </span>
                 </div>
 
                 <div class="space-y-4 text-xs">
@@ -348,8 +316,8 @@
                         <span class="text-slate-400 font-bold block text-[11px]">本機快取與事件日誌：</span>
                         <div id="db-logs" class="bg-slate-950 rounded-xl p-3 border border-slate-800 font-mono text-[10px] text-slate-500 space-y-1.5 h-36 overflow-y-auto custom-scrollbar">
                             <div>[SYSTEM] 初始化成功。系統目前為模擬狀態。</div>
-                            <div>[SYSTEM] 您隨時可以點選右上角「PWA 一鍵部署」下載程式包部署至您自己的主機！</div>
-                        <div><span class="text-slate-600">[00:34:17]</span> [SYSTEM] 成功串接真實 Supabase 資料庫，已就緒。</div><div><span class="text-slate-600">[00:34:17]</span> [Database] 正在載入最新的工廠技術資產...</div><div><span class="text-slate-600">[00:34:17]</span> [PWA] 未偵測到 sw.js。您可點擊右上角打包下載並部署。</div><div><span class="text-slate-600">[00:34:19]</span> [Database] 成功從 Supabase 雲端載入 2 筆資料</div></div>
+                            <div>[SYSTEM] 點擊「系統金鑰設定」串接您自己的 Supabase 與 Gemini。</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -357,97 +325,30 @@
 
     </main>
 
-    <!-- 行動端底部導航欄 (Mobile Navigation Bar) -->
-    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 flex justify-around items-center h-16 z-40 pb-safe shadow-2xl">
-        <button onclick="mobileSwitchTab('input')" id="nav-input-btn" class="flex-1 flex flex-col justify-center items-center py-2 text-amber-500">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            <span class="text-[9px] font-black mt-1">台籍登錄</span>
+    <!-- 📱 行動裝置底部導航列 -->
+    <nav class="sm:hidden fixed bottom-0 inset-x-0 bg-slate-900 border-t border-slate-800 h-16 flex justify-around items-center z-40 px-2 pb-safe">
+        <button onclick="switchTab('input')" id="nav-input" class="flex flex-col items-center justify-center w-20 h-full text-amber-400 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <span class="text-[10px] font-bold mt-1">台籍登錄</span>
         </button>
-        <button onclick="mobileSwitchTab('search')" id="nav-search-btn" class="flex-1 flex flex-col justify-center items-center py-2 text-slate-400 hover:text-slate-100">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            <span class="text-[9px] font-black mt-1">移工檢索</span>
+        <button onclick="switchTab('search')" id="nav-search" class="flex flex-col items-center justify-center w-20 h-full text-slate-400 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            <span class="text-[10px] font-bold mt-1">移工檢索</span>
         </button>
-        <button onclick="mobileSwitchTab('sidebar')" id="nav-sidebar-btn" class="flex-1 flex flex-col justify-center items-center py-2 text-slate-400 hover:text-slate-100">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
-            <span class="text-[9px] font-black mt-1">資料監控</span>
-        </button>
-        <button onclick="toggleModal('settings-modal')" class="flex-1 flex flex-col justify-center items-center py-2 text-slate-400 hover:text-slate-100">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
-            <span class="text-[9px] font-black mt-1">系統金鑰</span>
+        <button onclick="toggleModal('settings-modal')" class="flex flex-col items-center justify-center w-20 h-full text-slate-400 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <span class="text-[10px] font-bold mt-1">金鑰設定</span>
         </button>
     </nav>
 
-    <!-- 彈窗：PWA 離線打包部署下載 -->
-    <div id="pwa-deploy-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
-            <h3 class="text-base sm:text-lg font-black text-slate-100 flex items-center gap-2 mb-2">
-                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                <span>PWA 一鍵部署打包助手</span>
-            </h3>
-            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
-                PWA 必須在同個伺服器目錄底下擁有實體設定檔才能運作。在這裡，您可一鍵打包下載所需檔案：
-            </p>
-
-            <div class="space-y-4">
-                <!-- 下載 Manifest -->
-                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center gap-3">
-                    <div>
-                        <span class="font-mono text-xs text-slate-300 font-bold block">1. manifest.json</span>
-                        <span class="text-[10px] text-slate-500">定義 PWA 桌面的圖示、啟動背景色與獨立視窗。</span>
-                    </div>
-                    <button onclick="downloadManifestFile()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 active:scale-95">
-                        下載
-                    </button>
-                </div>
-
-                <!-- 下載 Service Worker -->
-                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center gap-3">
-                    <div>
-                        <span class="font-mono text-xs text-slate-300 font-bold block">2. sw.js</span>
-                        <span class="text-[10px] text-slate-500">Service Worker，用來快取靜態資源與離線訪問。</span>
-                    </div>
-                    <button onclick="downloadSWFile()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 active:scale-95">
-                        下載
-                    </button>
-                </div>
-
-                <!-- 下載 HTML 主頁面 -->
-                <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center gap-3">
-                    <div>
-                        <span class="font-mono text-xs text-slate-300 font-bold block">3. index.html</span>
-                        <span class="text-[10px] text-slate-500">請下載此 HTML 並在伺服器上更名為 index.html。</span>
-                    </div>
-                    <button onclick="downloadHTMLFile()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 active:scale-95">
-                        下載
-                    </button>
-                </div>
-            </div>
-
-            <div class="mt-6 p-3 bg-slate-950/50 border border-slate-800/80 rounded-xl">
-                <span class="text-xs text-slate-400 font-bold block mb-1">🚀 部署三步驟：</span>
-                <ol class="text-[10px] text-slate-500 list-decimal list-inside space-y-1">
-                    <li>下載上述三個檔案。</li>
-                    <li>將它們一起上傳至您的 HTTPS 伺服器根目錄（如 Vercel, Netlify 或 GitHub Pages）。</li>
-                    <li>用手機瀏覽器打開該網址，就會出現原生的「安裝 App」安裝提示！</li>
-                </ol>
-            </div>
-
-            <div class="flex gap-3 mt-6">
-                <button onclick="toggleModal('pwa-deploy-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-xl text-xs font-bold transition active:scale-95">
-                    關閉
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 彈窗 1：金鑰設定 -->
+    <!-- 彈窗 1：金鑰與 PWA 下載設定 -->
     <div id="settings-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
             <h3 class="text-lg font-black text-slate-100 flex items-center gap-2 mb-2">
-                <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                 <span>系統金鑰與端點設定</span>
             </h3>
-            <p class="text-xs text-slate-400 mb-4 leading-relaxed">我們絕不會上傳您的密鑰。所有運算皆透過您的瀏覽器安全直接發送至 Supabase 與 Google Gemini 伺服器。</p>
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">我們絕不會收集您的密鑰。所有運算皆透過您的瀏覽器安全直接發送至 Supabase 與 Google Gemini 伺服器。</p>
 
             <div class="space-y-4">
                 <div>
@@ -468,12 +369,26 @@
                 </div>
             </div>
 
+            <!-- 📦 PWA 離線包一鍵打包導出 -->
+            <div class="mt-5 pt-4 border-t border-slate-800/80 space-y-2">
+                <span class="text-xs text-slate-400 font-bold block">📦 離線 PWA 一鍵導出工具（極致部署）：</span>
+                <p class="text-[11px] text-slate-500">PWA 必須在伺服器上同時擁有 manifest.json 與 sw.js 方能啟動，點擊下方即可在瀏覽器端一鍵打包並下載完整安裝包！</p>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="downloadPWAFile('manifest')" class="bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-300 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+                        📥 下載 manifest.json
+                    </button>
+                    <button onclick="downloadPWAFile('sw')" class="bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-300 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+                        📥 下載 sw.js
+                    </button>
+                </div>
+            </div>
+
             <div class="flex gap-3 mt-6">
                 <button onclick="toggleModal('settings-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 py-2.5 rounded-xl text-xs font-bold transition">
                     取消
                 </button>
                 <button onclick="saveConfigurations()" class="flex-1 bg-amber-500 hover:bg-amber-600 text-slate-950 py-2.5 rounded-xl text-xs font-bold transition">
-                    儲存並測試連線
+                    儲存並重新連線
                 </button>
             </div>
         </div>
@@ -483,7 +398,7 @@
     <div id="sql-guide-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
             <h3 class="text-lg font-black text-slate-100 flex items-center gap-2 mb-2">
-                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                 <span>Supabase 10秒快速建表指南</span>
             </h3>
             <p class="text-xs text-slate-400 mb-4">請在您的 Supabase 控制台的 <strong>SQL Editor</strong> 貼上以下語法執行，即可與本網頁完美串接：</p>
@@ -492,7 +407,8 @@
                 <button onclick="copySQLScript()" class="absolute top-3 right-3 bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-1 rounded text-[10px] transition">
                     複製 SQL 語法
                 </button>
-                <pre class="text-[10px] text-emerald-400 font-mono overflow-x-auto max-h-60 custom-scrollbar whitespace-pre" id="sql-code-block">-- 1. 建立技術知識主表
+                <pre class="text-[10px] text-emerald-400 font-mono overflow-x-auto max-h-60 custom-scrollbar whitespace-pre" id="sql-code-block">
+-- 1. 建立技術知識主表
 create table if not exists knowledge_base (
   id bigint generated by default as identity primary key,
   title text not null,
@@ -513,7 +429,7 @@ create table if not exists knowledge_translations (
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
--- 3. 寬鬆政策：如果 RLS 被強制啟用，建立所有人（包含匿名網頁）皆可公開讀寫的政策 (Policies)
+-- 3. 安全政策：如果 RLS 被強制啟用，建立所有人（包含匿名網頁）皆可公開讀寫的政策 (Policies)
 drop policy if exists "Allow public insert access on knowledge_base" on knowledge_base;
 drop policy if exists "Allow public read access on knowledge_base" on knowledge_base;
 drop policy if exists "Allow public insert access on knowledge_translations" on knowledge_translations;
@@ -560,7 +476,7 @@ alter table knowledge_translations disable row level security;</pre>
                         技術主題名稱
                     </h3>
                     <button onclick="triggerTTS()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 p-3 rounded-full shadow-lg shadow-amber-500/10 transition duration-150 flex-shrink-0" title="語音朗讀步驟">
-                        <svg class="w-5 h-5 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+                        <svg class="w-5 h-5 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
                     </button>
                 </div>
 
@@ -630,7 +546,7 @@ alter table knowledge_translations disable row level security;</pre>
             3: {
                 category: "例行保養",
                 zh_title: "每日下班前車床週邊保養與斷電程序",
-                zh_content: "1. 碎屑與清潔作業：下班離開前，每位作業員必須負責清掃自己操作之機台週邊，將殘留鐵屑完全掃除乾淨並置入回收桶。\n2. 潤滑油例行檢查：目視檢查油標尺，確認機台潤滑油存量是否有達到安全水位線（二分之一以上）。\n3. 補給潤滑油：若油量不足，請前往材料倉庫提領專屬機油進行補足，至油位恢復安全区。\n4. 切斷總電源：檢查完畢並關閉機台本體後，務必親自將機台外側之總開關電源拉下，確保夜間無漏電及安全風險。",
+                zh_content: "1. 碎屑與清潔作業：下班離開前，每位作業員必須負責清掃自己操作之機台週邊，將殘留鐵屑完全掃除乾淨並置入回收桶。\n2. 潤滑油例行檢查：目視檢查油標尺，確認機台潤滑油存量是否有達到安全水位線（二分之一以上）。\n3. 補給潤滑油：若油量不足，請前往材料倉庫提領專屬機油進行補足，至油位恢復安全區。\n4. 切斷總電源：檢查完畢並關閉機台本體後，務必親自將機台外側之總開關電源拉下，確保夜間無漏電及安全風險。",
                 vi_title: "Quy trình bảo trì máy tiện và ngắt điện hàng ngày trước khi tan ca",
                 vi_content: "1. Vệ sinh và thu dọn mạt sắt: Trước khi ra về, mỗi công nhân phải dọn dẹp xung quanh máy tiện của mình, quét sạch mạt sắt còn sót lại và bỏ vào thùng rác quy định.\n2. Kiểm tra dầu bôi trơn: Kiểm tra bằng mắt thường thước đo dầu, xác nhận mức dầu bôi trơn đạt vạch an toàn (trên 1/2).\n3. Bổ sung dầu bôi trơn: Nếu thiếu dầu, hãy đến kho để lấy loại dầu nhớt chuyên dụng và thêm vào cho đến khi mức dầu đạt mức an toàn.\n4. Ngắt nguồn điện tổng: Sau khi kiểm tra xong và tắt thân máy, nhất thiết phải tự tay kéo cầu dao điện tổng bên ngoài xuống để đảm bảo an toàn, phòng tránh rò rỉ điện vào ban đêm.",
                 tags: ["每日保養", "設備清潔", "機油檢查", "斷電程序"]
@@ -653,7 +569,25 @@ alter table knowledge_translations disable row level security;</pre>
             loadSavedConfig();
             loadFromDatabase();
             initWebSpeech();
-            registerRealPWA();
+            registerServiceWorker();
+        }
+
+        // --- 指數退避重試 API 呼叫 (修補 Bug 關鍵！) ---
+        async function fetchWithBackoff(url, options, maxRetries = 5) {
+            let delay = 1000;
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.ok) return response;
+                    if (response.status !== 429 && response.status < 500) {
+                        throw new Error(`HTTP Error: ${response.status}`);
+                    }
+                } catch (err) {
+                    if (i === maxRetries - 1) throw err;
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2; // 指數級遞增
+            }
         }
 
         // 載入 localStorage 設定
@@ -675,7 +609,7 @@ alter table knowledge_translations disable row level security;</pre>
                     document.getElementById('connection-badge').innerText = "真實 Supabase 已連線";
                     document.getElementById('connection-badge').className = "text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-bold";
                     document.getElementById('mode-banner').className = "bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 rounded-xl p-4 flex items-center justify-between";
-                    document.getElementById('mode-banner').innerHTML = `<div class="flex items-center space-x-3 text-xs"><span class="flex h-3 w-3 bg-emerald-500 rounded-full"></span><div><span class="font-bold">目前處於：【真實雲端連線模式】</span><span class="text-slate-400">所有技術數據將寫入與查詢自您專屬的 Supabase。</span></div></div><button onclick="toggleModal('settings-modal')" class="text-xs text-emerald-400 font-bold underline">修改設定</button>`;
+                    document.getElementById('mode-banner').innerHTML = `<div class="flex items-center space-x-3 text-xs sm:text-sm"><span class="flex h-3 w-3 bg-emerald-500 rounded-full"></span><div><span class="font-bold">目前處於：【真實雲端連線模式】</span><span class="text-slate-400">所有技術數據將直接與您的 Supabase 雲端交互同步。</span></div></div><button onclick="toggleModal('settings-modal')" class="text-xs text-emerald-400 font-bold underline">修改設定</button>`;
                     addLog("[SYSTEM] 成功串接真實 Supabase 資料庫，已就緒。");
                 } catch (e) {
                     addLog(`[SYSTEM] Supabase 初始化失敗: ${e.message}`);
@@ -719,72 +653,39 @@ alter table knowledge_translations disable row level security;</pre>
             modal.classList.toggle('hidden');
         }
 
-        // 切換主頁籤 (桌面版與平板)
+        // 切換主頁籤 (完美適應手機版/桌面版)
         function switchTab(tab) {
             currentTab = tab;
+            const inputPanel = document.getElementById('panel-input');
+            const searchPanel = document.getElementById('panel-search');
+
+            // 桌面端 Tab 按鈕
             const inputBtn = document.getElementById('tab-input-btn');
             const searchBtn = document.getElementById('tab-search-btn');
-            const inputPanel = document.getElementById('panel-input');
-            const searchPanel = document.getElementById('panel-search');
-            const sidebarPanel = document.getElementById('sidebar-panel');
 
-            // 先重設所有區塊隱藏
-            inputPanel.classList.add('hidden');
-            searchPanel.classList.add('hidden');
-            sidebarPanel.classList.remove('hidden'); // 預設桌面版顯示
+            // 行動端 Bottom Nav 按鈕
+            const navInput = document.getElementById('nav-input');
+            const navSearch = document.getElementById('nav-search');
 
             if (tab === 'input') {
-                inputBtn.className = "flex-1 py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 transition-all bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/10";
-                searchBtn.className = "flex-1 py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 transition-all text-slate-400 hover:text-slate-100";
-                inputPanel.classList.remove('hidden');
-            } else if (tab === 'search') {
-                searchBtn.className = "flex-1 py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 transition-all bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/10";
-                inputBtn.className = "flex-1 py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 transition-all text-slate-400 hover:text-slate-100";
-                searchPanel.classList.remove('hidden');
-                renderList();
-            }
-        }
+                if (inputBtn) inputBtn.className = "flex-1 py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 transition-all bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/10";
+                if (searchBtn) searchBtn.className = "flex-1 py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 transition-all text-slate-400 hover:text-slate-100";
+                
+                navInput.className = "flex flex-col items-center justify-center w-20 h-full text-amber-400 transition";
+                navSearch.className = "flex flex-col items-center justify-center w-20 h-full text-slate-400 transition";
 
-        // 行動端專用：底部導航欄點擊切換
-        function mobileSwitchTab(tab) {
-            const inputPanel = document.getElementById('panel-input');
-            const searchPanel = document.getElementById('panel-search');
-            const sidebarPanel = document.getElementById('sidebar-panel');
-
-            // 重設底部導航按鈕樣式
-            const buttons = {
-                'input': 'nav-input-btn',
-                'search': 'nav-search-btn',
-                'sidebar': 'nav-sidebar-btn'
-            };
-
-            for (let key in buttons) {
-                const btn = document.getElementById(buttons[key]);
-                if (key === tab) {
-                    btn.classList.add('text-amber-500');
-                    btn.classList.remove('text-slate-400', 'hover:text-slate-100');
-                } else {
-                    btn.classList.remove('text-amber-500');
-                    btn.classList.add('text-slate-400', 'hover:text-slate-100');
-                }
-            }
-
-            // 切換面板顯示 (行動端一次只會顯示一個面板)
-            if (tab === 'input') {
                 inputPanel.classList.remove('hidden');
                 searchPanel.classList.add('hidden');
-                sidebarPanel.classList.add('hidden');
-            } else if (tab === 'search') {
-                inputPanel.classList.add('hidden');
+            } else {
+                if (searchBtn) searchBtn.className = "flex-1 py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 transition-all bg-amber-500 text-slate-950 shadow-lg shadow-amber-500/10";
+                if (inputBtn) inputBtn.className = "flex-1 py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 transition-all text-slate-400 hover:text-slate-100";
+                
+                navSearch.className = "flex flex-col items-center justify-center w-20 h-full text-amber-400 transition";
+                navInput.className = "flex flex-col items-center justify-center w-20 h-full text-slate-400 transition";
+
                 searchPanel.classList.remove('hidden');
-                sidebarPanel.classList.add('hidden');
-                renderList();
-            } else if (tab === 'sidebar') {
                 inputPanel.classList.add('hidden');
-                searchPanel.classList.add('hidden');
-                sidebarPanel.classList.remove('hidden');
-                // 行動端強制展開側邊欄滿版
-                sidebarPanel.className = "w-full flex flex-col space-y-6";
+                renderList();
             }
         }
 
@@ -838,9 +739,9 @@ alter table knowledge_translations disable row level security;</pre>
                 try {
                     speechRecognizer.start();
                     isSpeechRunning = true;
-                    document.getElementById('speech-btn-text').innerText = "【聽音中...】請直接口述經驗";
+                    document.getElementById('speech-btn-text').innerText = "【聽音中...】請口述經驗";
                     document.getElementById('speech-pulse').classList.remove('hidden');
-                    document.getElementById('speech-btn').className = "w-full sm:w-auto h-12 flex items-center justify-center space-x-2 bg-rose-600 hover:bg-rose-700 text-white px-4 rounded-xl transition font-medium text-xs sm:text-sm";
+                    document.getElementById('speech-btn').className = "w-full sm:w-auto flex items-center justify-center space-x-2 bg-rose-600 hover:bg-rose-700 text-white px-4 py-3 rounded-xl transition font-medium text-sm";
                     addLog("[語音辨識] 麥克風已啟動，開始監聽華語口述...");
                 } catch (e) {
                     addLog(`[語音辨識] 啟動失敗: ${e.message}`);
@@ -855,7 +756,7 @@ alter table knowledge_translations disable row level security;</pre>
             isSpeechRunning = false;
             document.getElementById('speech-btn-text').innerText = "開始語音輸入 (中文)";
             document.getElementById('speech-pulse').classList.add('hidden');
-            document.getElementById('speech-btn').className = "w-full sm:w-auto h-12 flex items-center justify-center space-x-2 bg-rose-600/10 hover:bg-rose-600/20 text-rose-400 border border-rose-500/20 px-4 rounded-xl transition font-medium text-xs sm:text-sm";
+            document.getElementById('speech-btn').className = "w-full sm:w-auto flex items-center justify-center space-x-2 bg-rose-600/10 hover:bg-rose-600/20 text-rose-400 border border-rose-500/20 px-4 py-3 rounded-xl transition font-medium text-sm";
             addLog("[語音辨識] 麥克風監聽關閉");
         }
 
@@ -881,6 +782,7 @@ alter table knowledge_translations disable row level security;</pre>
             const geminiModel = localStorage.getItem('cfg_gemini_model') || 'gemini-1.5-flash';
 
             if (!geminiKey) {
+                // 本地模擬模式
                 addLog("[AI Processing] 無配置 API 金鑰，使用本地預先配置之智慧分析。");
                 setTimeout(() => {
                     document.getElementById('ai-loader').classList.add('hidden');
@@ -920,6 +822,7 @@ alter table knowledge_translations disable row level security;</pre>
                 return;
             }
 
+            // 真實串接 Gemini API
             addLog(`[AI Processing] 開始調用 ${geminiModel} 進行結構化優化與越文轉譯...`);
             document.getElementById('loader-text').innerText = `AI 正在利用 ${geminiModel} 將口語轉化為結構化 SOP，並精準翻譯成越南文...`;
 
@@ -931,9 +834,10 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
 
             const prompt = `Please process this oral instruction: "${rawText}"`;
 
+            // 定義強大的 Schema 結構
             const payload = {
                 contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: { parts: [{ text: prompt }] },
+                systemInstruction: { parts: [{ text: systemPrompt }] },
                 generationConfig: {
                     responseMimeType: "application/json",
                     responseSchema: {
@@ -1012,6 +916,7 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
                 try {
                     addLog("[Supabase 儲存] 啟動交易寫入...");
                     
+                    // 1. 寫入主表 `knowledge_base`
                     const { data: baseData, error: baseErr } = await supabaseClient
                         .from('knowledge_base')
                         .insert([{ title: zh_title, content: zh_content, category, tags, raw_input }])
@@ -1021,6 +926,7 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
                     const newId = baseData[0].id;
                     addLog(`[Supabase 儲存] 主表寫入成功，ID: ${newId}`);
 
+                    // 2. 寫入多語言翻譯表 `knowledge_translations` (越南文)
                     const { error: transErr } = await supabaseClient
                         .from('knowledge_translations')
                         .insert([{
@@ -1031,7 +937,7 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
                         }]);
 
                     if (transErr) throw transErr;
-                    addLog(`[Supabase 儲存] 多語言關聯寫入成功！`);
+                    addLog(`[Supabase 儲存] 多語言關聯寫入成功！兩表完全同步對齊。`);
                     showToast("🎉 成功同步儲存至 Supabase 雲端！", "success");
 
                 } catch (err) {
@@ -1039,6 +945,7 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
                     showToast(`❌ 資料庫儲存失敗: ${err.message}`, "error");
                 }
             } else {
+                // 模擬本機寫入
                 const newId = localDatabase.length + 1;
                 localDatabase.push({
                     id: newId,
@@ -1058,15 +965,12 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
             document.getElementById('raw-textarea').value = "";
             document.getElementById('ai-output-panel').classList.add('hidden');
             
+            // 重新載入
             loadFromDatabase();
             
+            // 自動切往檢索區
             setTimeout(() => {
-                // 自動導航至移工檢索頁
-                if (window.innerWidth < 1024) {
-                    mobileSwitchTab('search');
-                } else {
-                    switchTab('search');
-                }
+                switchTab('search');
             }, 800);
         }
 
@@ -1076,18 +980,21 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
 
             if (supabaseClient) {
                 try {
+                    // 1. 撈取主表
                     const { data: baseData, error: baseErr } = await supabaseClient
                         .from('knowledge_base')
                         .select('*');
 
                     if (baseErr) throw baseErr;
 
+                    // 2. 撈取翻譯表
                     const { data: transData, error: transErr } = await supabaseClient
                         .from('knowledge_translations')
                         .select('*');
 
                     if (transErr) throw transErr;
 
+                    // 組裝兩表資料成容易在前端搜尋與切換語言的結構
                     cachedDatabase = baseData.map(item => {
                         const matchedTrans = transData.find(t => t.knowledge_id === item.id && t.language === 'vi-VN');
                         return {
@@ -1112,6 +1019,7 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
                 cachedDatabase = [...localDatabase];
             }
 
+            // 更新右側面板狀態
             document.getElementById('stats-zh').innerText = cachedDatabase.length;
             document.getElementById('stats-vi').innerText = cachedDatabase.filter(x => x.vi_title && !x.vi_title.includes("【無")).length;
 
@@ -1158,7 +1066,7 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
             renderList();
         }
 
-        // 搜尋結果渲染
+        // 搜尋渲染
         function renderList() {
             const query = document.getElementById('search-input').value.toLowerCase().trim();
             const grid = document.getElementById('results-grid');
@@ -1178,13 +1086,13 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
             document.getElementById('search-count').innerText = filtered.length;
 
             if (filtered.length === 0) {
-                grid.innerHTML = `<div class="bg-slate-900 border border-slate-850 p-8 text-center text-xs text-slate-500 rounded-xl">📭 無對應相符的 SOP。請變更關鍵字或分類。</div>`;
+                grid.innerHTML = `<div class="bg-slate-900 border border-slate-850 p-8 text-center text-xs text-slate-500 rounded-xl">📭 無對應相符的 SOP。請變更關鍵字 or 分類。</div>`;
                 return;
             }
 
             filtered.forEach(item => {
                 const card = document.createElement('div');
-                card.className = "bg-slate-900 hover:bg-slate-850/80 border border-slate-800 hover:border-slate-700 p-5 rounded-xl transition cursor-pointer flex flex-col justify-between relative group active:scale-[0.98]";
+                card.className = "bg-slate-900 hover:bg-slate-850/80 border border-slate-800 hover:border-slate-700 p-5 rounded-xl transition cursor-pointer flex flex-col justify-between relative group";
                 card.onclick = () => openDetail(item);
 
                 const title = (activeSearchLanguage === 'zh') ? item.zh_title : item.vi_title;
@@ -1222,7 +1130,7 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
         // --- 詳細彈窗控制與語系切換 ---
         function openDetail(item) {
             currentDetailItem = item;
-            currentDetailLang = activeSearchLanguage; 
+            currentDetailLang = activeSearchLanguage; // 沿用當前介面搜尋語系
             toggleModal('detail-modal');
             updateModalContent();
         }
@@ -1239,6 +1147,7 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
             const btnZh = document.getElementById('modal-lang-zh');
             const btnVi = document.getElementById('modal-lang-vi');
 
+            // 標題與分類
             document.getElementById('modal-category').innerText = item.category;
             
             if (currentDetailLang === 'zh') {
@@ -1255,8 +1164,10 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
                 document.getElementById('modal-content').innerText = item.vi_content;
             }
 
+            // 原始記錄
             document.getElementById('modal-raw').innerText = item.raw_input || "無原始口頭禪語音記錄。";
 
+            // 標籤
             const tagsDiv = document.getElementById('modal-tags');
             tagsDiv.innerHTML = "";
             item.tags.forEach(t => {
@@ -1287,7 +1198,7 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
                 showToast("🔊 正在為您用華語朗讀操作步驟...", "info");
             } else {
                 utterance.lang = 'vi-VN';
-                utterance.rate = 0.95; 
+                utterance.rate = 0.95; // 越南語稍微放慢
                 showToast("🔊 Đang phát hướng dẫn bằng tiếng Việt...", "info");
             }
 
@@ -1301,103 +1212,87 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
             document.body.appendChild(dummy);
             dummy.value = code;
             dummy.select();
-            document.execCommand("copy"); 
+            document.execCommand("copy"); // 採用安全的標準剪貼簿指令
             document.body.removeChild(dummy);
             showToast("📋 SQL 語法已複製到您的剪貼簿！", "success");
         }
 
-        // --- PWA 功能：自動註冊 Service Worker (在一般 HTTPS 主機下生效) ---
-        function registerRealPWA() {
+        // 共通 Toast
+        function showToast(msg, type = "success") {
+            const t = document.createElement('div');
+            t.className = "fixed bottom-24 sm:bottom-5 right-5 z-50 px-5 py-3 rounded-xl text-xs font-bold text-slate-950 shadow-2xl transition duration-300 transform translate-y-10 opacity-0";
+            if (type === 'success') t.className += " bg-emerald-400 border border-emerald-500";
+            else if (type === 'error') t.className += " bg-rose-400 border border-rose-500";
+            else t.className += " bg-amber-400 border border-amber-500";
+
+            t.innerText = msg;
+            document.body.appendChild(t);
+
+            setTimeout(() => {
+                t.classList.remove('translate-y-10', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                t.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => { document.body.removeChild(t); }, 300);
+            }, 3000);
+        }
+
+        // --- PWA 註冊與自動生成導出模組 ---
+        function registerServiceWorker() {
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js')
-                    .then((reg) => {
-                        addLog("[PWA] 成功偵測並在瀏覽器後台註冊 Service Worker。");
-                    })
-                    .catch((err) => {
-                        addLog("[PWA] 未偵測到 sw.js。您可點擊右上角打包下載並部署。");
-                    });
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => addLog("[PWA] Service Worker 註冊就緒。離線快取功能就位。"))
+                    .catch(err => addLog(`[PWA] 本地 Service Worker 未在本地託管服務啟動 (此為正常現象，GitHub Pages 上線後將自動就緒)`));
             }
+        }
 
-            // 手機安裝提示事件
-            let deferredPrompt;
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                const installBtn = document.getElementById('pwa-install-btn');
-                installBtn.classList.remove('hidden');
+        // PWA 檔案動態打包下載
+        function downloadPWAFile(type) {
+            let filename = '';
+            let content = '';
 
-                installBtn.addEventListener('click', () => {
-                    installBtn.classList.add('hidden');
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === 'accepted') {
-                            addLog("[PWA] 使用者已安裝 FactoryTech App 到手機！");
+            if (type === 'manifest') {
+                filename = 'manifest.json';
+                content = JSON.stringify({
+                    "name": "工廠技術跨語言知識平台",
+                    "short_name": "FactoryTech",
+                    "description": "提供台灣、越南等外籍員工之跨語言技術與 SOP 快速傳承與檢索平台",
+                    "start_url": "index.html",
+                    "display": "standalone",
+                    "background_color": "#090d16",
+                    "theme_color": "#0f172a",
+                    "orientation": "portrait-primary",
+                    "icons": [
+                        {
+                            "src": "https://cdn-icons-png.flaticon.com/512/5811/5811195.png",
+                            "sizes": "512x512",
+                            "type": "image/png",
+                            "purpose": "any maskable"
                         }
-                        deferredPrompt = null;
-                    });
-                });
-            });
-        }
-
-        // --- PWA 一鍵導出與下載輔助函式 ---
-        function triggerDownload(content, fileName, mimeType) {
-            const blob = new Blob([content], { type: mimeType });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-
-        function downloadManifestFile() {
-            const manifestObj = {
-                "name": "FactoryTech AI 跨語言傳承平台",
-                "short_name": "FactoryTech",
-                "description": "提供資深員工語音登錄與移工跨語言SOP檢索之工業PWA系統",
-                "start_url": "./index.html",
-                "display": "standalone",
-                "background_color": "#0f172a",
-                "theme_color": "#f59e0b",
-                "orientation": "portrait",
-                "icons": [
-                    {
-                        "src": "https://placehold.co/192x192/f59e0b/0f172a?text=FT",
-                        "sizes": "192x192",
-                        "type": "image/png"
-                    },
-                    {
-                        "src": "https://placehold.co/512x512/f59e0b/0f172a?text=FT",
-                        "sizes": "512x512",
-                        "type": "image/png"
-                    }
-                ]
-            };
-            triggerDownload(JSON.stringify(manifestObj, null, 2), "manifest.json", "application/json");
-            showToast("📁 manifest.json 下載成功！", "success");
-        }
-
-        function downloadSWFile() {
-            const swCode = `// FactoryTech PWA Service Worker (sw.js)
-const CACHE_NAME = 'factorytech-cache-v1';
+                    ]
+                }, null, 2);
+            } else if (type === 'sw') {
+                filename = 'sw.js';
+                content = `const CACHE_NAME = 'factorytech-v1';
 const ASSETS = [
-  './index.html',
-  './manifest.json'
+  'index.html',
+  'manifest.json'
 ];
 
-self.addEventListener('install', (e) => {
+self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
+    caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(ASSETS);
     }).then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener('activate', (e) => {
+self.addEventListener('activate', e => {
   e.waitUntil(
-    caches.keys().then((keys) => {
+    caches.keys().then(keys => {
       return Promise.all(
-        keys.map((key) => {
+        keys.map(key => {
           if (key !== CACHE_NAME) {
             return caches.delete(key);
           }
@@ -1407,45 +1302,30 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-self.addEventListener('fetch', (e) => {
+self.addEventListener('fetch', e => {
+  // 如果是 API 連線 (Gemini 或 Supabase)，則不要快取，直接向網路發送
+  if (e.request.url.includes('googleapis') || e.request.url.includes('supabase')) {
+    return;
+  }
   e.respondWith(
-    caches.match(e.request).then((cachedResponse) => {
-      if (cachedResponse) return cachedResponse;
-      return fetch(e.request).then((networkResponse) => {
-        // 僅快取成功、同源或核心 CDN 請求
-        if (networkResponse && networkResponse.status === 200 && e.request.url.startsWith(self.location.origin)) {
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(e.request, networkResponse.clone());
-          });
-        }
-        return networkResponse;
-      });
-    }).catch(() => caches.match('./index.html'))
+    caches.match(e.request).then(cachedResponse => {
+      return cachedResponse || fetch(e.request);
+    })
   );
 });`;
-            triggerDownload(swCode, "sw.js", "application/javascript");
-            showToast("⚙️ sw.js 下載成功！", "success");
-        }
+            }
 
-        function downloadHTMLFile() {
-            // 直接抓取當前整個 HTML 的結構並導出
-            const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-            triggerDownload(htmlContent, "index.html", "text/html");
-            showToast("📄 index.html 下載成功！", "success");
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast(`🎉 成功打包並下載 ${filename}！`, "success");
         }
     </script>
-
-
-```
-
-### 📱 如何在您的手機或電腦上安裝此 App？
-
-為了讓您能真正像安裝原生 App 一樣將它安裝在手機上，請使用**「PWA 一鍵部署打包」**功能：
-
-1. **點擊右上角的「PWA 一鍵部署打包」按鈕**。
-2. 依次點選下載 **`manifest.json`**、**`sw.js`**、以及 **`index.html`**。
-3. 將這三個檔案放進同一個資料夾，並上傳至您手邊現有的任何 HTTPS 靜態網頁代管服務（例如：**GitHub Pages**、**Vercel**、**Netlify** 等，它們完全免費，上傳不用 20 秒）。
-4. **開啟您的手機（iOS 用 Safari，Android 用 Chrome）：**
-   * **Android (Chrome):** 網頁最上方會自動彈出「**新增 FactoryTech 到主畫面**」（或手動點擊右上角選單 ➔ 安裝應用程式）。
-   * **iOS (Safari):** 點擊下方的「**分享**」按鈕 ➔ 往下選擇「**新增至主畫面**」。
-5. 您會發現手機桌面上多出一個專業、極具工廠硬派原生質感的 **FactoryTech** Icon，點擊即能以獨立視窗、無瀏覽器框架、滿版、且觸控超順暢的狀態使用！</body></html>
+</body>
+</html>
