@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>工廠技術跨語言知識平台 - PWA 實作版</title>
     <!-- PWA Manifest & Meta Tags for iOS -->
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -538,7 +538,7 @@ alter table knowledge_translations disable row level security;</pre>
         const presets = {
             1: "CNC車床換刀的時候，要先按紅色停機，然後拿12號扳手把螺母鬆開，裝上新的進去，重點是那個刀尖一定要完全對準中心線，不然切削出來工件會有公差毛邊。",
             2: "塑膠射出機那個溫度要是飆到快兩百八十度，就一定要趕快去後面把冷卻水循環閥全開扭開，不然等超過五分鐘螺桿整組咬死就廢掉了，還要通知小組長來換熱電偶溫控感應器。",
-            3: "廠房大家下班點檢保養，車床旁邊那些鐵屑一定要用掃帚清掃干净集中倒掉，再去倉庫拿機油加到看油尺有一半以上才可以，最後廠房那個大顆的黑箱總電源要手拉斷電才能走，不要漏掉。"
+            3: "廠房大家下班點檢保養，车床旁邊那些鐵屑一定要用掃帚清掃干净集中倒掉，再去倉庫拿機油加到看油尺有一半以上才可以，最後廠房那個大顆的黑箱總電源要手拉斷電才能走，不要漏掉。"
         };
 
         // 模擬 AI 生成對應資料
@@ -548,7 +548,7 @@ alter table knowledge_translations disable row level security;</pre>
                 zh_title: "每日下班前車床週邊保養與斷電程序",
                 zh_content: "1. 碎屑與清潔作業：下班離開前，每位作業員必須負責清掃自己操作之機台週邊，將殘留鐵屑完全掃除乾淨並置入回收桶。\n2. 潤滑油例行檢查：目視檢查油標尺，確認機台潤滑油存量是否有達到安全水位線（二分之一以上）。\n3. 補給潤滑油：若油量不足，請前往材料倉庫提領專屬機油進行補足，至油位恢復安全區。\n4. 切斷總電源：檢查完畢並關閉機台本體後，務必親自將機台外側之總開關電源拉下，確保夜間無漏電及安全風險。",
                 vi_title: "Quy trình bảo trì máy tiện và ngắt điện hàng ngày trước khi tan ca",
-                vi_content: "1. Vệ sinh và thu dọn mạt sắt: Trước khi ra về, mỗi công nhân phải dọn dẹp xung quanh máy tiện của mình, quét sạch mạt sắt còn sót lại và bỏ vào thùng rác quy định.\n2. Kiểm tra dầu bôi trơn: Kiểm tra bằng mắt thường thước đo dầu, xác nhận mức dầu bôi trơn đạt vạch an toàn (trên 1/2).\n3. Bổ sung dầu bôi trơn: Nếu thiếu dầu, hãy đến kho để lấy loại dầu nhớt chuyên dụng và thêm vào cho đến khi mức dầu đạt mức an toàn.\n4. Ngắt nguồn điện tổng: Sau khi kiểm tra xong và tắt thân máy, nhất thiết phải tự tay kéo cầu dao điện tổng bên ngoài xuống để đảm bảo an toàn, phòng tránh rò rỉ điện vào ban đêm.",
+                vi_content: "1. Vệ sinh và thu dọn mạt sắt: Trước khi ra về, mỗi công nhân phải dọn dẹp xung quanh máy tiện của mình, quét sạch mạt sắt còn sót lại và bỏ vào thùng rác quy định.\n2. Kiểm tra dầu bôi trơn: Kiểm tra bằng mắt thường thước đo dầu, xác nhận mức dầu bôi trơn đạt vạch an toàn (trên 1/2).\n3. Bổ sung dầu bôi trơn: Nếu thiếu dầu, hãy đến kho để lấy loại dầu nhớt chuyên dụng và thêm vào cho đến khi mức dầu đạt mức an toàn.\n4. Ngắt nguồn điện tổng: Sau khi kiểm tra xong and tắt thân máy, nhất thiết phải tự tay kéo cầu dao điện tổng bên ngoài xuống để đảm bảo an toàn, phòng tránh rò rỉ điện vào ban đêm.",
                 tags: ["每日保養", "設備清潔", "機油檢查", "斷電程序"]
             }
         };
@@ -572,7 +572,7 @@ alter table knowledge_translations disable row level security;</pre>
             registerServiceWorker();
         }
 
-        // --- 指數退避重試 API 呼叫 (修補 Bug 關鍵！) ---
+        // --- 指數退避重試 API 呼叫 ---
         async function fetchWithBackoff(url, options, maxRetries = 5) {
             let delay = 1000;
             for (let i = 0; i < maxRetries; i++) {
@@ -729,6 +729,7 @@ alter table knowledge_translations disable row level security;</pre>
             };
         }
 
+        // --- 語音輸入控制 ---
         function toggleSpeechRecognition() {
             if (!speechRecognizer) {
                 simulateSpeechInput();
@@ -1212,7 +1213,7 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
             document.body.appendChild(dummy);
             dummy.value = code;
             dummy.select();
-            document.execCommand("copy"); // 採用安全的標準剪貼簿指令
+            document.execCommand('copy');
             document.body.removeChild(dummy);
             showToast("📋 SQL 語法已複製到您的剪貼簿！", "success");
         }
@@ -1258,7 +1259,8 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
                     "name": "工廠技術跨語言知識平台",
                     "short_name": "FactoryTech",
                     "description": "提供台灣、越南等外籍員工之跨語言技術與 SOP 快速傳承與檢索平台",
-                    "start_url": "index.html",
+                    "start_url": "./",
+                    "scope": "./",
                     "display": "standalone",
                     "background_color": "#090d16",
                     "theme_color": "#0f172a",
@@ -1274,10 +1276,11 @@ Translate industrial terms accurately (e.g. lathe as 車床 / máy tiện, nut a
                 }, null, 2);
             } else if (type === 'sw') {
                 filename = 'sw.js';
-                content = `const CACHE_NAME = 'factorytech-v1';
+                content = `const CACHE_NAME = 'factorytech-v2';
 const ASSETS = [
-  'index.html',
-  'manifest.json'
+  './',
+  './index.html',
+  './manifest.json'
 ];
 
 self.addEventListener('install', e => {

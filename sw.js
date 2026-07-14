@@ -1,7 +1,8 @@
-const CACHE_NAME = 'factorytech-v1';
+const CACHE_NAME = 'factorytech-v2';
 const ASSETS = [
-  'index.html',
-  'manifest.json'
+  './',
+  './index.html',
+  './manifest.json'
 ];
 
 self.addEventListener('install', e => {
